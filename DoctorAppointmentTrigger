@@ -1,0 +1,24 @@
+trigger DoctorAppointmentTrigger on Appointment__c (before insert) {
+    Map<id,DateTime> doc_time = new Map<id,DateTime>();
+    Set<id> docids = new Set<Id>();
+    docids.clear();
+    for(Appointment__c app: trigger.new){
+    	if(app.Doctor__c != null){
+            docids.add(app.Doctor__c);
+        }
+    }
+    
+    List<Appointment__c> applist = [Select Id, Appointment_Date__c, Doctor__c  from Appointment__c where Doctor__c = :docids ];
+    doc_time.clear();
+    for(Appointment__c apptemp : applist ){
+        doc_time.put(apptemp.Doctor__c, apptemp.Appointment_Date__c);
+    }
+    
+    for(Appointment__c app: trigger.new){
+        for(Id idtemp :doc_time.keySet() ){
+            if(app.Doctor__c  == idtemp && app.Appointment_Date__c == doc_time.get(idtemp)){
+                app.addError('This doctor already has an appointment at this time.');
+            }
+        }
+    }
+}

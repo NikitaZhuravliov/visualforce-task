@@ -1,0 +1,24 @@
+<apex:page Controller="CreateDoctorController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Doctor.Name}" label="Doctor Name" >
+                </apex:inputField>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Doctor.Working_Hours_Start__c}" label="Start working hours" >
+                </apex:inputField>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Doctor.Working_Hours_End__c}" label="End working hours" >
+                </apex:inputField>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!saveDoctor}" value="Save"/>
+            </apex:pageBlockButtons>  
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

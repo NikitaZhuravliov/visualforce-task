@@ -1,0 +1,65 @@
+<apex:page controller="AppointmentTableController" >
+    <apex:form id="appointmentTable">
+        <apex:pageBlock title="Appointment Table">
+            <apex:pageBlockSection >
+            	<apex:selectList size="1" label="Select a doctor" value="{!DoctorList}">
+               		<apex:selectOptions value="{!DoctorSelectOptionList}"/>
+                    <apex:actionSupport event="onchange" reRender="workingHoursStart,workingHoursEnd" action="{!updateWorkingHours}"/>
+            	</apex:selectList>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+            	<apex:commandButton action="{!addNewDoctor}" value="Add New Doctor"/>
+            </apex:pageBlockSection>
+            
+            <!-- ???????????????? need to use reRender to get the Working_Hours_Start__c -->
+        	<apex:pageBlockSection id="workingHoursStart">
+                <apex:outputText value="{!Doctor.Working_Hours_Start__c}" label="Working Hours Start">
+				</apex:outputText>
+       		</apex:pageBlockSection>
+            
+            <!-- ????????????? need to use reRender to get the Working_Hours_End__c -->
+            <apex:pageBlockSection id="workingHoursEnd">
+            	<apex:outputText value="{!Doctor.Working_Hours_End__c}" label="Working Hours Ends">
+				</apex:outputText>
+       		</apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+            	<apex:selectList size="1" label="Select a patient">
+               		<apex:selectOptions value="{!PatientSelectOptionList}"/>
+            	</apex:selectList>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+            	<apex:commandButton action="{!addNewPatient}" value="Add New Patient"/>
+            </apex:pageBlockSection>
+        
+            <apex:pageBlockSection >
+                <apex:inputField required="false" value="{!Appointment.Appointment_Date__c}" label="Appointment Date">
+                </apex:inputField>
+            </apex:pageBlockSection>
+                
+            <apex:pageBlockSection >
+                <apex:inputField required="false" value="{!Appointment.Duration_in_minutes__c}" label="Duration in minutes">
+                </apex:inputField>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+            	<apex:commandButton action="{!addNewAppt}" value="Add New Appointment" />
+            </apex:pageBlockSection>
+        
+            <!-- ??????????? need to use reRender to all appointments -->
+            <apex:pageBlockSection >
+            	<apex:pageBlockTable value="{!Appt}" var="appointment">
+                    <apex:column value="{!appointment.Doctor__c}" headerValue="Doctor's Name"/>
+                    <apex:column value="{!appointment.Patient__c}" headerValue="Patient's Name"/>
+                    <apex:column value="{!appointment.Appointment_Date__c}" headerValue="Date"/>
+                    <apex:column value="{!appointment.Duration_in_minutes__c}" headerValue="Duration"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <!-- ??????????? Pagination -->
+        
+    </apex:form>
+</apex:page>

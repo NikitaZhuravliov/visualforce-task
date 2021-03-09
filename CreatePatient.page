@@ -1,0 +1,14 @@
+<apex:page controller="CreatePatientController" >
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Patient.Name}" label="Patient Name" >
+                </apex:inputField>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!savePatient}" value="Save"/>
+            </apex:pageBlockButtons>  
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
